@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- load properties file -->
+<context:property-placeholder location="sport.properties"/>
+    <!-- Define your beans here -->
+    <bean id="myFortuneService" class="com.company.HappyFortuneService"/>
+
+    <!-- new randomfortuneBean -->
+    <bean id="randomFortuneService" class="com.company.RandomFortuneService"/>
+    <bean id="myCoach"
+          class="com.company.BasketballCoach">
+        <constructor-arg ref="randomFortuneService"/>
+    </bean>
+
+    <bean id="myCricketCoach" class="com.company.CricketCoach">
+        <!-- set up setter -->
+        <property name="fortuneService" ref="myFortuneService"/>
+
+        <!-- set up literal values setter -->
+        <property name="emailAddress" value="${foo.email}" />
+        <property name="team" value="${foo.team}" />
+    </bean>
+    <!--my coach implementation -->
+<!--    <bean id="myBasketballCoach" class="BasketballCoach">-->
+<!--       &lt;!&ndash; constructor injection &ndash;&gt;-->
+<!--        <constructor-arg ref="randomFortuneService"></constructor-arg>-->
+<!--    </bean>-->
+
+</beans>
+
+
+
+
+
